@@ -2,16 +2,16 @@ package com.med.mdvfd2;
 
 public class Main {
     public static void main(String[] args) {
-        Vectorizable v = (new DFSolver()).solve(1, new Function() {
+        Vectorizable v = (new DFSolver()).solve(100, new Function() {
                     @Override
                     public double calcul(double x, double y) {
-                        return x*x+y*y;
+                        return 2;
                     }
                 },
                 new Function() {
                     @Override
                     public double calcul(double x, double y) {
-                        return -4;
+                        return 0;
                     }
                 });
 
