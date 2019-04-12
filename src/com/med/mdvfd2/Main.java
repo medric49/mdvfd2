@@ -5,13 +5,13 @@ public class Main {
         Vectorizable v = (new DFSolver()).solve(100, new Function() {
                     @Override
                     public double calcul(double x, double y) {
-                        return 2;
+                        return x*x+y*y;
                     }
                 },
                 new Function() {
                     @Override
                     public double calcul(double x, double y) {
-                        return 0;
+                        return 4;
                     }
                 });
 
