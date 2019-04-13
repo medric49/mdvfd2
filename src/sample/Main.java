@@ -11,7 +11,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("../app/views/sample.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../app/views/main.fxml"));
         primaryStage.setTitle("Différences et Volume finis");
         primaryStage.getIcons().add(new Image("app/assets/img/icon.png"));
         primaryStage.setScene(new Scene(root, 700, 500));
