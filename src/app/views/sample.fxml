@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="600.0" minWidth="700.0" prefHeight="646.0" prefWidth="1269.0" stylesheets="@../assets/css/main.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.MainController">
+    <left>
+        <VBox fx:id="sidemenu" prefHeight="577.0" prefWidth="273.0" spacing="15.0" styleClass="side-menu" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets left="20.0" top="30.0" />
+            </padding>
+            <children>
+                <JFXButton alignment="CENTER" minWidth="205.0" prefHeight="50.0" prefWidth="205.0" styleClass="button-settings" text="Différences finies" />
+                <JFXButton alignment="CENTER" minWidth="205.0" prefHeight="50.0" prefWidth="205.0" styleClass="button-settings" text="Volumes finis" />
+            </children></VBox>
+    </left>
+    <top>
+        <HBox maxHeight="69.0" prefHeight="69.0" prefWidth="818.0" styleClass="header" BorderPane.alignment="CENTER">
+            <children>
+                <AnchorPane prefHeight="69.0" prefWidth="305.0">
+                    <children>
+                        <ImageView fitHeight="52.0" fitWidth="81.0" layoutX="14.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../assets/img/icon_2.png" />
+                            </image>
+                        </ImageView>
+                  <Label layoutX="76.0" layoutY="22.0" text="Différences &amp; Vomumes finis" textFill="WHITE">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                    </children>
+                </AnchorPane>
+            </children>
+        </HBox>
+    </top>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER_RIGHT" prefHeight="166.0" prefWidth="545.0">
+               <children>
+                  <VBox prefHeight="206.0" prefWidth="866.0">
+                     <children>
+                        <Label styleClass="form-label" text="Expression de la fonction f()" textFill="#2b0000" />
+                        <JFXTextField unFocusColor="#00aae4">
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </JFXTextField>
+                        <Label styleClass="form-label" text="Expression de la fonction g()" />
+                        <JFXTextField unFocusColor="#00aae4">
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </JFXTextField>
+                        <Label styleClass="form-label" text="Valeur de n" />
+                        <JFXTextField prefHeight="26.0" prefWidth="258.0" unFocusColor="#00aae4" />
+                     </children>
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </padding></VBox>
+                  <VBox prefHeight="206.0" prefWidth="281.0">
+                     <children>
+                        <StackPane prefHeight="150.0" prefWidth="200.0">
+                           <children>
+                              <JFXButton alignment="CENTER" prefHeight="93.0" prefWidth="178.0" ripplerFill="#3f78e1" styleClass="button-visualize" text="Visualiser">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font></JFXButton>
+                           </children>
+                        </StackPane>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                           <children>
+                              <JFXButton alignment="CENTER" prefHeight="30.0" prefWidth="65.0" ripplerFill="#00aae4" styleClass="button-min" text="Vue 1" />
+                              <JFXButton alignment="CENTER" prefHeight="30.0" prefWidth="65.0" ripplerFill="#00aae4" styleClass="button-min" text="Vue 2" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <AnchorPane prefHeight="428.0" prefWidth="545.0" />
+         </children>
+      </VBox>
+   </center>
+</BorderPane>

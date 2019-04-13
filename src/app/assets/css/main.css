@@ -1,0 +1,75 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 1 mars 2019, 19:53:01
+    Author     : Yvan TCHOFFO
+*/
+
+.header{
+    -fx-background-color: #00AAE4;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.61), 10, 0, 0, 0);
+}
+
+.header .title{
+    -fx-text-fill:#fff;
+    -fx-font-size: 19px;
+    -fx-font-weight: bold;
+}
+
+.side-menu{
+    -fx-text-fill: #fff;
+    -fx-background-color: #435f71;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.61), 10, 0, 0, 0);
+}
+
+.content-scroll{
+    -fx-box-border: transparent;
+}
+
+
+ScrollPane{
+    -fx-border-color:black;
+    -fx-border-width: 0 0.2 0 0.2;
+
+}
+
+
+
+.button-settings {
+    -fx-border-color: #00AAE4;
+    -fx-border-width: 2px;
+    -fx-background-radius: 3px;
+    -fx-border-radius: 3px;
+    -fx-text-fill: white;
+    -fx-text-alignment: center;
+}
+
+.button-min {
+    -fx-border-color: #00AAE4;
+    -fx-border-width: 2px;
+    -fx-background-radius: 3px;
+    -fx-border-radius: 3px;
+    -fx-text-fill: #00AAE4;
+    -fx-text-alignment: center;
+}
+
+.button-visualize {
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 10, 0, 0, 0);
+    -fx-border-color: #00AAE4;
+    -fx-background-color: #00AAE4;
+    -fx-border-width: 2px;
+    -fx-background-radius: 3px;
+    -fx-border-radius: 3px;
+    -fx-text-fill: white;
+    -fx-text-alignment: center;
+}
+
+.form-label {
+    -fx-text-fill: #00AAE4;
+}
+.form-text-field {
+
+}
