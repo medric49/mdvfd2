@@ -1,0 +1,65 @@
+/* define package-prefix */
+Package com.med.calculator;
+
+/* define token */
+Tokens
+    function = ( 'sin' | 'cos' | 'tan' | 'ln' | 'Log' | 'exp' | 'cosh' | 'sinh' | 'tanh' | 'abs' | 'floor' | 'ceil' | 'sqrt' | 'atan' | 'acos' | 'asin' );
+    function2 = ('pow' | 'min' | 'max' );
+    const = ('PI' | 'E' ) ;
+    var = 'x'|'y' ;
+	number = ( ['0' .. '9']+ ) | ( (['0' .. '9']+) '.' (['0' .. '9']*) ) | ( (['0' .. '9']*) '.' (['0' .. '9']+) );
+	comma = ',';
+	plus = '+';
+	minus = '-';
+	mult = '*';
+	div = '/';
+	mod = '%';
+	pow = '^';
+	l_par = '(';
+	r_par = ')';
+	blank = (' ' | 13 | 10)+;
+
+/* Token to be ignored */
+Ignored Tokens
+	blank;
+
+Productions
+	expr
+		= {right_expr} right_expr;
+
+	right_expr = {factor} factor
+	    |{plus} right_expr plus factor
+	    |{minus} right_expr neg_expr
+	    |{neg_expr} neg_expr;
+
+	other_expr = {expr} right_expr;
+
+	neg_expr = {neg} minus factor;
+
+	factor
+		= {term} term
+		| {mult} factor mult term
+		| {div} factor div term
+		| {mod} factor mod term
+		| {pow} factor pow term
+		| {mult_func} factor mult func
+		| {div_func} factor div func
+		| {mod_func} factor mod func
+		| {pow_func} factor pow func
+		| {mult_func2} factor mult func2
+		| {mod_func2} factor mod func2
+        | {div_func2} factor div func2
+        | {pow_func2} factor pow func2
+		| {function} func
+		| {function2} func2;
+
+	expr_bloc = {expr} l_par right_expr r_par;
+
+	func = function expr_bloc;
+	func2 = function2 l_par right_expr comma other_expr r_par;
+
+	term
+		= {number} number
+		| {const} const
+		| {var} var
+		| {expr} expr_bloc;

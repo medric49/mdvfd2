@@ -1,12 +1,18 @@
 package com.med.mdvfd2;
 
+import com.udojava.evalex.Expression;
+
 public class Main {
     public static void main(String[] args) {
-        int n = 300;
+        String expr = "x^2+y^2";
+        int n = 20;
+
         Function g = new Function() {
             @Override
             public double calcul(double x, double y) {
-                return x * x + y * y;
+                String e = expr.replace("x", ""+x).replace("y",""+y);
+
+                return (new Expression(e)).eval().doubleValue();
             }
         };
         Function f = new Function() {

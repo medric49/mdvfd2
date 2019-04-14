@@ -2,7 +2,7 @@ package com.med.mdvfd2;
 
 public abstract class ASolver implements Solver {
 
-    protected static Pair[] getMaillage(int n) {
+    public static Pair[] getMaillage(int n) {
         double s1 = 0;
         double s2 = 0;
 
