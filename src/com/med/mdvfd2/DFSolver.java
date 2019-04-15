@@ -28,7 +28,7 @@ public class DFSolver extends ASolver{
                                 apply(n,h2, pairs, u, g, f);
 
                         }
-                    }).run();
+                    }).start();
                     k+=th_pas;
                 }
 

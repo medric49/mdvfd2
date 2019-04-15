@@ -32,19 +32,19 @@ public class MainController implements Initializable {
     private String gString = "";
     private int n = 0;
 
-    private DFSolver dfSolver = new DFSolver();
-    private VFSolver vfSolver = new VFSolver();
+    private DFSolver dfSolver = new DFSolver(); // Solveur des differences finies
+    private VFSolver vfSolver = new VFSolver(); // Solveur des volumes finis
 
-    private Vectorizable vector1 = null;
-    private Vectorizable vector2 = null;
+    private Vectorizable vector1 = null; // Vecteur des differences finies
+    private Vectorizable vector2 = null; // Vecteur des volumes finis
 
 
-    private boolean multithreading = false;
-    private byte viewType = 1;
-    private byte methodType = 1;
+    private boolean multithreading = false; // Indicateur du multithread
+    private byte viewType = 1; // Type de la vue
+    private byte methodType = 1; // Indicateur de la methode (differences finies ou volume finis)
 
-    private NumberAxis xAxis = new NumberAxis(0, 1, 0.1);
-    private NumberAxis yAxis = new NumberAxis(0, 1, 0.1);
+    private NumberAxis xAxis = new NumberAxis(0, 1, 0.1); // Axe des absisses
+    private NumberAxis yAxis = new NumberAxis(0, 1, 0.1); // Axe des ordonnées
 
     private ScatterChart<String, Number> scatterChart = new ScatterChart(xAxis, yAxis);
 
