@@ -1,12 +1,11 @@
 package com.med.mdvfd2;
 
-
 public class DFSolver extends ASolver{
+
 
     @Override
     public Vectorizable solve(int n, Function g, Function f, boolean multiThreading) throws MDVFException {
-
-        if (n >0) {
+        if (n>0) {
             int iter = 5000;
             final int th_pas = 100;
             int k = 0;
@@ -17,13 +16,12 @@ public class DFSolver extends ASolver{
             final double h = 1./(n+1);
             final double h2 = h*h;
 
-            while (k<iter && evaluate(u, pairs, n, g, f)) {
+            while (k<iter) {
                 if (multiThreading)
                 {
                     (new Thread() {
                         @Override
                         public void run() {
-                            super.run();
                             for (int i = 0; i<th_pas; i++)
                                 apply(n,h2, pairs, u, g, f);
 
@@ -53,7 +51,7 @@ public class DFSolver extends ASolver{
             int i0 = i+1;
             int j0 = j+1;
 
-            Pair pair = pairs[i0+j*(n+2)];
+            Pair pair = pairs[i0+j0*(n+2)];
 
             double d1;
             double d2;
@@ -88,6 +86,7 @@ public class DFSolver extends ASolver{
     private boolean evaluate(Vectorizable u, Pair[] pairs, int n, Function g, Function f) {
         double s = 0;
         double h2 = 1./(n+1);
+        h2*=h2;
 
         for (int p=0; p<n*n; p++) {
             int i = p%n;
@@ -96,7 +95,7 @@ public class DFSolver extends ASolver{
             int i0 = i+1;
             int j0 = j+1;
 
-            Pair pair = pairs[i0+j*(n+2)];
+            Pair pair = pairs[i0+j0*(n+2)];
 
             double d1;
             double d2;
