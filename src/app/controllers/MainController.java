@@ -105,14 +105,14 @@ public class MainController implements Initializable {
                     this.dfSolver.setG(gString);
                     this.dfSolver.setN(n);
 
-                    this.vector1 = new Vector(n);
+                    this.vector1 = new Vector(n*n);
 
                     (new Thread() {
                         @Override
                         public void run() {
                             super.run();
                             Vectorizable v = dfSolver.solve(multithreading);
-                            for (int i = 0; i<n; i++ )
+                            for (int i = 0; i<n*n; i++ )
                                 vector1.set(i, v.get(i));
                         }
                     }).start();
