@@ -83,6 +83,7 @@ public class DFSolver extends ASolver{
 
         }
     }
+
     private boolean evaluate(Vectorizable u, Pair[] pairs, int n, Function g, Function f) {
         double s = 0;
         double h2 = 1./(n+1);

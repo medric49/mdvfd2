@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="600.0" minWidth="700.0" prefHeight="646.0" prefWidth="1269.0" stylesheets="@../assets/css/main.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.MainController">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="600.0" minWidth="700.0" prefHeight="646.0" prefWidth="1269.0" stylesheets="@../assets/css/main.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.MainController">
     <left>
         <VBox fx:id="sidemenu" prefHeight="577.0" prefWidth="243.0" spacing="15.0" styleClass="side-menu" BorderPane.alignment="CENTER">
             <padding>
@@ -75,7 +75,7 @@
                      <children>
                         <StackPane prefHeight="150.0" prefWidth="200.0">
                            <children>
-                              <JFXButton alignment="CENTER" onAction="#apply" prefHeight="93.0" prefWidth="178.0" ripplerFill="#3f78e1" styleClass="button-visualize" text="Visualiser">
+                              <JFXButton fx:id="visualiser" alignment="CENTER" onAction="#apply" prefHeight="93.0" prefWidth="178.0" ripplerFill="#3f78e1" styleClass="button-visualize" text="Visualiser">
                                  <font>
                                     <Font size="22.0" />
                                  </font></JFXButton>
