@@ -81,12 +81,6 @@
                                  </font></JFXButton>
                            </children>
                         </StackPane>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
-                           <children>
-                              <JFXButton alignment="CENTER" onAction="#setView1" prefHeight="30.0" prefWidth="65.0" ripplerFill="#00aae4" styleClass="button-min" text="Vue 1" />
-                              <JFXButton alignment="CENTER" onAction="#setView2" prefHeight="30.0" prefWidth="65.0" ripplerFill="#00aae4" styleClass="button-min" text="Vue 2" />
-                           </children>
-                        </HBox>
                      </children>
                   </VBox>
                </children>

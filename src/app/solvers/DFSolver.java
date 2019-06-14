@@ -1,6 +1,8 @@
 package app.solvers;
 
+import com.med.mdvfd2.ASolver;
 import com.med.mdvfd2.Function;
+import com.med.mdvfd2.Pair;
 import com.med.mdvfd2.Vectorizable;
 import com.udojava.evalex.Expression;
 
@@ -11,7 +13,7 @@ public class DFSolver extends com.med.mdvfd2.DFSolver implements Solver {
     private int n;
 
     @Override
-    public Vectorizable solve(boolean multithreading) {
+    public double[][] solve(boolean multithreading) {
         Function gFunction = new Function() {
             @Override
             public double calcul(double x, double y) {
@@ -28,7 +30,26 @@ public class DFSolver extends com.med.mdvfd2.DFSolver implements Solver {
                 return (new Expression(e)).eval().doubleValue();
             }
         };
-        return this.solve(n, gFunction, fFunction, multithreading);
+        Vectorizable v = this.solve(n, gFunction, fFunction, multithreading);
+        double[][] r = new double[n+2][n+2];
+
+        Pair[] points = ASolver.getMaillage(n);
+        for (int j = 0; j<n+2; j++) {
+            for (int i = 0; i < n+2; i++)
+            {
+                if (i == 0 || i == n+1 || j == 0 || j == n+1)
+                {
+                    Pair point = points[i+(n+2)*j] ;
+                    r[i][j] = gFunction.calcul(point.x(),point.y());
+                }
+                else
+                    r[i][j] = v.get( i-1 + n*(j-1) );
+            }
+
+        }
+
+
+        return r;
     }
 
     @Override

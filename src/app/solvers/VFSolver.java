@@ -11,7 +11,7 @@ public class VFSolver extends com.med.mdvfd2.VFSolver implements Solver {
     private int n;
 
     @Override
-    public Vectorizable solve(boolean multithreading) {
+    public double[][] solve(boolean multithreading) {
         Function gFunction = new Function() {
             @Override
             public double calcul(double x, double y) {
@@ -28,8 +28,8 @@ public class VFSolver extends com.med.mdvfd2.VFSolver implements Solver {
                 return (new Expression(e)).eval().doubleValue();
             }
         };
-
-        return this.solve(n, gFunction, fFunction, multithreading);
+        Vectorizable v = this.solve(n, gFunction, fFunction, multithreading);
+        return null;
     }
 
 

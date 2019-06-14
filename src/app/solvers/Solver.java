@@ -4,7 +4,7 @@ import com.med.mdvfd2.Vectorizable;
 
 public interface Solver {
 
-    Vectorizable solve(boolean multithreading);
+    double[][] solve(boolean multithreading);
 
     String getF();
 

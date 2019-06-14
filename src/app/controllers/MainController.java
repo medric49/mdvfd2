@@ -40,7 +40,6 @@ public class MainController implements Initializable {
 
 
     private boolean multithreading = false; // Indicateur du multithread
-    private byte viewType = 1; // Type de la vue
     private byte methodType = 1; // Indicateur de la methode (differences finies ou volume finis)
 
     private NumberAxis xAxis = new NumberAxis(0, 1, 0.1); // Axe des absisses
@@ -55,16 +54,6 @@ public class MainController implements Initializable {
         this.chartContainer.getChildren().add(scatterChart);
         this.scatterChart.setMinHeight(460);
         this.scatterChart.setMinWidth(700);
-    }
-
-    @FXML
-    private void setView1(ActionEvent event) {
-        this.viewType = 1;
-    }
-
-    @FXML
-    private void setView2(ActionEvent event) {
-        this.viewType = 2;
     }
 
 
@@ -111,9 +100,9 @@ public class MainController implements Initializable {
                         @Override
                         public void run() {
                             super.run();
-                            Vectorizable v = dfSolver.solve(multithreading);
-                            for (int i = 0; i<n*n; i++ )
-                                vector1.set(i, v.get(i));
+                            double[][] v = dfSolver.solve(multithreading);
+                            /*for (int i = 0; i<n*n; i++ )
+                                vector1.set(i, v.get(i));*/
                         }
                     }).start();
 
