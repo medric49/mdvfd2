@@ -40,7 +40,7 @@ public class DFSolver extends ASolver{
             return u;
         }
         else
-            throw new MDVFException("Le nombre n est négatif");
+            throw new MDVFException("Le nombre n est négatif ou nul");
     }
 
     private void apply(int n, double h2, Pair[] pairs, Vector u, Function g, Function f) {
