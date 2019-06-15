@@ -24,11 +24,12 @@ import javafx.scene.Parent;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -46,9 +47,19 @@ public class MainController implements Initializable {
     private JFXTextField nValue;
     @FXML
     private JFXButton visualiser; // le bouton visualiser
+    @FXML
+    private JFXButton dif; // le bouton Différences finies
+    @FXML
+    private JFXButton vof; // le bouton Volumes finis
+
+    @FXML
+    private HBox hb = new HBox();
+    @FXML
+    private Label labe = new Label();
 
     private VBox vb =new VBox();
-    private HBox hb =new HBox();
+
+    private PixelMatrix M = new PixelMatrix();
 
     private String fString = "";
     private String gString = "";
@@ -62,31 +73,42 @@ public class MainController implements Initializable {
 
 
     private boolean multithreading = false; // Indicateur du multithread
-    private byte methodType = 1; // Indicateur de la methode (differences finies ou volume finis)
+    private byte methodType = 2; // Indicateur de la methode (differences finies ou volume finis)
 
     private NumberAxis xAxis = new NumberAxis(0, 1, 0.1); // Axe des absisses
     private NumberAxis yAxis = new NumberAxis(0, 1, 0.1); // Axe des ordonnées
 
-    private PixelMatrix M;
-
-    private double U[][] = new double[4][4];
+    private double[][] U;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.xAxis.setLabel("x");
         this.yAxis.setLabel("y");
+        labe.setText("");
+        hb.getChildren().add(vb);
+
     }
 
 
     @FXML
     private void setFiniteDifference(ActionEvent event) {
+        this.labe.setText("Différences finies");
         this.methodType = 1;
+        this.fExpression.setText("");
+        this.gExpression.setText("");
+        this.nValue.setText("");
+        this.vb.getChildren().clear();
 
     }
 
     @FXML
     private void setFiniteVolume(ActionEvent event) {
+        this.labe.setText("Volumes finis");
         this.methodType = 2;
+        this.fExpression.setText("");
+        this.gExpression.setText("");
+        this.nValue.setText("");
+        this.vb.getChildren().clear();
     }
 
 
@@ -97,6 +119,7 @@ public class MainController implements Initializable {
 
     @FXML
     private void apply(ActionEvent event) {
+
         try {
             this.fString = this.fExpression.getText();
             this.gString = this.gExpression.getText();
@@ -111,15 +134,12 @@ public class MainController implements Initializable {
 
                 this.visualiser.setDisable(true);
 
+
                 if (this.methodType == 1) {
 
                     this.dfSolver.setF(fString);
                     this.dfSolver.setG(gString);
                     this.dfSolver.setN(n);
-
-                    this.vector1 = new Vector(n*n);
-
-
 
                     final Service<Void> calculateService = new Service<Void>() {
 
@@ -130,12 +150,7 @@ public class MainController implements Initializable {
 
                                 @Override
                                 protected Void call() throws Exception {
-                                    double[][] v = dfSolver.solve(multithreading);
-
-                                    /*for (int i = 0; i<(n*n); i++ ) {
-                                        vector1.set(i, v.get(i));
-
-                                    }*/
+                                    U = dfSolver.solve(multithreading);
 
                                     return null;
                                 }
@@ -151,12 +166,55 @@ public class MainController implements Initializable {
                             case CANCELLED:
                             case SUCCEEDED:
 
-                                U[0][0] =2.2 ;U[0][1] = 3;U[0][2] =2.5 ;U[0][3] =1.5 ;
-                                U[1][0] =1 ;U[1][1] = 4;U[1][2] =1.5 ;U[1][3] =3 ;
-                                U[2][0] =2 ;U[2][1] = 3;U[2][2] =3.2;U[2][3] =1.5 ;
-                                U[3][0] =2.2 ;U[3][1] = 3;U[3][2] =2.5 ;U[3][3] =2.2 ;
+                                this.visualiser.setDisable(false);
+                                try {
+                                    this.M = drawSolution(U);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                vb.getChildren().clear();
+                                vb.getChildren().add(M);
 
 
+                                break;
+                        }
+                    });
+                    calculateService.start();
+
+
+
+
+                }
+                else if(this.methodType == 2){
+                    this.vfSolver.setF(fString);
+                    this.vfSolver.setG(gString);
+                    this.vfSolver.setN(n);
+
+
+                    final Service<Void> calculateService = new Service<Void>() {
+
+                        @Override
+
+                        protected Task<Void> createTask() {
+                            return new Task<Void>() {
+
+                                @Override
+                                protected Void call() throws Exception {
+                                    U = vfSolver.solve(multithreading);
+
+                                    return null;
+                                }
+                            };
+                        }
+
+
+                    };
+
+                    calculateService.stateProperty().addListener((ObservableValue<? extends Worker.State> observableValue, Worker.State oldValue, Worker.State newValue) -> {
+                        switch (newValue) {
+                            case FAILED:
+                            case CANCELLED:
+                            case SUCCEEDED:
 
                                 this.visualiser.setDisable(false);
                                 try {
@@ -164,17 +222,14 @@ public class MainController implements Initializable {
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
+                                vb.getChildren().clear();
                                 vb.getChildren().add(M);
-                                hb.getChildren().add(vb);
-                                this.chartContainer.getChildren().add(hb);
+
 
                                 break;
                         }
                     });
                     calculateService.start();
-                }
-                else {
-
                 }
 
             }

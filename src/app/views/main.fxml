@@ -21,8 +21,8 @@
                 <Insets left="20.0" top="30.0" />
             </padding>
             <children>
-                <JFXButton alignment="CENTER" minWidth="205.0" onAction="#setFiniteDifference" prefHeight="50.0" prefWidth="205.0" styleClass="button-settings" text="Différences finies" />
-                <JFXButton alignment="CENTER" minWidth="205.0" onAction="#setFiniteVolume" prefHeight="50.0" prefWidth="205.0" styleClass="button-settings" text="Volumes finis" />
+                <JFXButton fx:id="dif" alignment="CENTER" minWidth="205.0" onAction="#setFiniteDifference" prefHeight="50.0" prefWidth="205.0" styleClass="button-settings" text="Différences finies" />
+                <JFXButton fx:id="vof" alignment="CENTER" minWidth="205.0" onAction="#setFiniteVolume" prefHeight="50.0" prefWidth="205.0" styleClass="button-settings" text="Volumes finis" />
             <JFXToggleButton onAction="#toggleMultiThreading" text="Multithreading" textFill="WHITE" toggleColor="#00aae4" toggleLineColor="#97c9e8" />
             </children></VBox>
     </left>
@@ -36,7 +36,7 @@
                                 <Image url="@../assets/img/icon_2.png" />
                             </image>
                         </ImageView>
-                  <Label layoutX="76.0" layoutY="22.0" text="Différences &amp; Vomumes finis" textFill="WHITE">
+                  <Label layoutX="76.0" layoutY="22.0" text="Différences &amp; Volumes finis" textFill="WHITE">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -85,7 +85,11 @@
                   </VBox>
                </children>
             </HBox>
-            <AnchorPane fx:id="chartContainer" prefHeight="428.0" prefWidth="545.0" />
+            <AnchorPane fx:id="chartContainer" prefHeight="428.0" prefWidth="545.0">
+               <children>
+                  <HBox fx:id="hb" layoutX="390.0" layoutY="83.0" prefHeight="249.0" prefWidth="458.0" />
+                  <Label fx:id="labe" layoutX="24.0" layoutY="13.0" text="Label" />
+               </children></AnchorPane>
          </children>
       </VBox>
    </center>

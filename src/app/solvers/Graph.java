@@ -66,7 +66,7 @@ public class Graph{
             double x = point.getX()/matrix.getWidth();
             double y = 1-point.getY()/matrix.getHeight();
             double u = interpolation(x,y);
-            mousePositionToolTip.setText(String.format("(%.5f; %.5f ; %.5f)",x,y,u));
+            mousePositionToolTip.setText(String.format("(x = %.5f; y = %.5f ; U = %.5f)",x,y,u));
             Node node = (Node) event.getSource();
             mousePositionToolTip.show(node, event.getScreenX() + 50, event.getScreenY());            
         });
