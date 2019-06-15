@@ -24,6 +24,7 @@ import javafx.scene.Parent;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
@@ -72,8 +73,8 @@ public class MainController implements Initializable {
     private Vectorizable vector2 = null; // Vecteur des volumes finis
 
 
-    private boolean multithreading = false; // Indicateur du multithread
-    private byte methodType = 2; // Indicateur de la methode (differences finies ou volume finis)
+    private boolean multithreading = true; // Indicateur du multithread
+    private byte methodType = 1; // Indicateur de la methode (differences finies ou volume finis)
 
     private NumberAxis xAxis = new NumberAxis(0, 1, 0.1); // Axe des absisses
     private NumberAxis yAxis = new NumberAxis(0, 1, 0.1); // Axe des ordonnées
@@ -84,8 +85,9 @@ public class MainController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         this.xAxis.setLabel("x");
         this.yAxis.setLabel("y");
-        labe.setText("");
         hb.getChildren().add(vb);
+
+        setFiniteDifference(null);
 
     }
 
@@ -94,9 +96,11 @@ public class MainController implements Initializable {
     private void setFiniteDifference(ActionEvent event) {
         this.labe.setText("Différences finies");
         this.methodType = 1;
+
         this.fExpression.setText("");
         this.gExpression.setText("");
         this.nValue.setText("");
+
         this.vb.getChildren().clear();
 
     }
@@ -126,7 +130,12 @@ public class MainController implements Initializable {
             this.n = Integer.parseInt(this.nValue.getText());
 
             if (fString.isEmpty() || this.gString.isEmpty() || n<=0 || this.nValue.getText().isEmpty()) {
-                return;
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erreur de saisi");
+                alert.setHeaderText(null);
+                alert.setContentText("Les valeurs entrées sont incorrects");
+                alert.showAndWait();
+
             }
             else {
                 this.xAxis.setTickUnit(1./(n+1));

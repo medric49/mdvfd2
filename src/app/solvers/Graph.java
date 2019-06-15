@@ -17,8 +17,27 @@ import javafx.stage.Stage;
 
 public class Graph{
 
-    public static Color[] colors = new Color[]{Color.RED,Color.PINK,Color.ORANGE,Color.BEIGE,Color.YELLOW,Color.LIMEGREEN,Color.GREEN,
-                       Color.DARKGREEN,Color.TURQUOISE,Color.MEDIUMBLUE,Color.BLUE,Color.DARKBLUE,Color.VIOLET,Color.PURPLE};
+    public static Color[] colors = new Color[]{
+            Color.color(0, 0.5, 0.8,0.1),
+            Color.color(0, 0.5, 0.8,0.15),
+            Color.color(0, 0.5, 0.8,0.2),
+            Color.color(0, 0.5, 0.8,0.25),
+            Color.color(0, 0.5, 0.8,0.3),
+            Color.color(0, 0.5, 0.8,0.35),
+            Color.color(0, 0.5, 0.8,0.4),
+            Color.color(0, 0.5, 0.8,0.45),
+            Color.color(0, 0.5, 0.8,0.5),
+            Color.color(0, 0.5, 0.8,0.55),
+            Color.color(0, 0.5, 0.8,0.6),
+            Color.color(0, 0.5, 0.8,0.65),
+            Color.color(0, 0.5, 0.8,0.7),
+            Color.color(0, 0.5, 0.8,0.75),
+            Color.color(0, 0.5, 0.8,0.8),
+            Color.color(0, 0.5, 0.8,0.85),
+            Color.color(0, 0.5, 0.8,0.9),
+            Color.color(0, 0.5, 0.8,1),
+
+            };
     public Tooltip mousePositionToolTip = new Tooltip("");
     public static double U[][];
     private PixelMatrix matrix;
@@ -34,7 +53,7 @@ public class Graph{
         matrix.setColsAndRows(N+1,N+1);
         matrix.setSquarePixels(true);
         matrix.setSpacerSizeFactor(0);
-        matrix.setStyle("-fx-border-color:red");
+        matrix.setStyle("-fx-border-color:#00aae4");
         matrix.setAllPixelsOn();
         double min  = 0, max = 0;
         double averages[][] = new double[N+1][N+1];
@@ -56,7 +75,7 @@ public class Graph{
                 if(max == min){
                     matrix.setPixel(i, j, colors[0]);
                 }else{
-                    matrix.setPixel(i,N-j, colors[Math.min(13,Math.round((float)(colors.length*(averages[i][j]-min)/(max-min))))]);
+                    matrix.setPixel(i,N-j, colors[Math.min(colors.length-1,Math.round((float)(colors.length*(averages[i][j]-min)/(max-min))))]);
                 }
             }
         }

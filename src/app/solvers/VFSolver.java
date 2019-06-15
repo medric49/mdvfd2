@@ -1,6 +1,8 @@
 package app.solvers;
 
+import com.med.mdvfd2.ASolver;
 import com.med.mdvfd2.Function;
+import com.med.mdvfd2.Pair;
 import com.med.mdvfd2.Vectorizable;
 import com.udojava.evalex.Expression;
 
@@ -28,8 +30,25 @@ public class VFSolver extends com.med.mdvfd2.VFSolver implements Solver {
                 return (new Expression(e)).eval().doubleValue();
             }
         };
+
         Vectorizable v = this.solve(n, gFunction, fFunction, multithreading);
-        return null;
+
+        double[][] r = new double[n+2][n+2];
+
+        Pair[] points = ASolver.getVolumesPoints(n-1);
+        for (int j = 0; j<n+2; j++) {
+            for (int i = 0; i < n+2; i++)
+            {
+                if (i == 0 || i == n+1 || j == 0 || j == n+1)
+                {
+                    Pair point = points[i+(n+2)*j];
+                    r[i][j] = gFunction.calcul(point.x(),point.y());
+                }
+                else
+                    r[i][j] = v.get( i-1 + n*(j-1) );
+            }
+        }
+        return r;
     }
 
 

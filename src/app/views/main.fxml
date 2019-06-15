@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="600.0" minWidth="700.0" prefHeight="646.0" prefWidth="1269.0" stylesheets="@../assets/css/main.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.MainController">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="600.0" minWidth="700.0" prefHeight="646.0" prefWidth="1269.0" stylesheets="@../assets/css/main.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.MainController">
     <left>
         <VBox fx:id="sidemenu" prefHeight="577.0" prefWidth="243.0" spacing="15.0" styleClass="side-menu" BorderPane.alignment="CENTER">
             <padding>
@@ -23,7 +23,7 @@
             <children>
                 <JFXButton fx:id="dif" alignment="CENTER" minWidth="205.0" onAction="#setFiniteDifference" prefHeight="50.0" prefWidth="205.0" styleClass="button-settings" text="Différences finies" />
                 <JFXButton fx:id="vof" alignment="CENTER" minWidth="205.0" onAction="#setFiniteVolume" prefHeight="50.0" prefWidth="205.0" styleClass="button-settings" text="Volumes finis" />
-            <JFXToggleButton onAction="#toggleMultiThreading" text="Multithreading" textFill="WHITE" toggleColor="#00aae4" toggleLineColor="#97c9e8" />
+            <JFXToggleButton onAction="#toggleMultiThreading" selected="true" text="Multithreading" textFill="WHITE" toggleColor="#00aae4" toggleLineColor="#97c9e8" />
             </children></VBox>
     </left>
     <top>
@@ -71,7 +71,7 @@
                      <padding>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </padding></VBox>
-                  <VBox prefHeight="206.0" prefWidth="281.0">
+                  <VBox alignment="TOP_CENTER" prefHeight="206.0" prefWidth="281.0">
                      <children>
                         <StackPane prefHeight="150.0" prefWidth="200.0">
                            <children>
@@ -81,14 +81,18 @@
                                  </font></JFXButton>
                            </children>
                         </StackPane>
+                        <Label fx:id="labe" text="Label" textFill="#00aae4">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
                      </children>
                   </VBox>
                </children>
             </HBox>
             <AnchorPane fx:id="chartContainer" prefHeight="428.0" prefWidth="545.0">
                <children>
-                  <HBox fx:id="hb" layoutX="390.0" layoutY="83.0" prefHeight="249.0" prefWidth="458.0" />
-                  <Label fx:id="labe" layoutX="24.0" layoutY="13.0" text="Label" />
+                  <HBox fx:id="hb" layoutX="251.0" layoutY="2.0" prefHeight="249.0" prefWidth="458.0" />
                </children></AnchorPane>
          </children>
       </VBox>
