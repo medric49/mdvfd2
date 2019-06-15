@@ -1,27 +1,17 @@
 package com.med.mdvfd2;
 
+import com.med.test.Functions;
 import com.udojava.evalex.Expression;
 
 public class Main {
     public static void main(String[] args) {
-        int n = 2;
-
-        Function g = new Function() {
+        Vector v = Functions.constructRAforVF(new Function() {
             @Override
             public double calcul(double x, double y) {
-                return 2;
+                return y;
             }
-        };
-        Function f = new Function() {
-            @Override
-            public double calcul(double x, double y) {
-                return 0;
-            }
-        };
-
-        Vectorizable v1 = (new VFSolver()).solve(n,g,f, true);
-
-        for (int i = 0; i< v1.size(); i++)
-            System.out.println(v1.get(i));
+        }, 2);
+        for (int i = 0; i<v.size(); i++)
+            System.out.println(v.get(i));
     }
 }

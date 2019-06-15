@@ -2,6 +2,7 @@ package com.med.test;
 
 import com.med.mdvfd2.*;
 import javafx.util.Pair;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,7 +11,7 @@ import java.util.Map;
 
 import static com.mdalsoft.test.DefaultTestLogger.logTest;
 
-public class DFTestRunner {
+public class VFTestRunner {
 
     public static void main(String[] args) {
         ArrayList<Integer> results = new ArrayList<>();
@@ -18,13 +19,13 @@ public class DFTestRunner {
         ArrayList<Double> times = new ArrayList<>();
 
         ArrayList<Pair<Character, Character>> testClasses = Functions.getTestClasses();
-        File logFile = Functions.createLogFile(Functions.FINITE_DIFFERENCE_LOG_FOLDER);
+        File logFile = Functions.createLogFile(Functions.FINITE_VOLUME_LOG_FOLDER);
 
 
         Date start = new Date();
         try {
-            String classeATester = "com.med.mdvfd2.DFSolver";
-            String methodToTest = "DFSolver.solve";
+            String classeATester = "com.med.mdvfd2.VFSolver";
+            String methodToTest = "VFSolver.solve";
             String testFileLogger = "com.mdalsoft.test.FileTestLogger";
             for (int i = 0; i < testClasses.size(); i++) {
                 Pair<Character, Character> classe = testClasses.get(i);
@@ -205,7 +206,7 @@ public class DFTestRunner {
 
 
                         if (n > 0) {
-                            ra = Functions.constructRA(u, n);
+                            ra = Functions.constructRAforVF(u, n);
                         }
 
                         break;
@@ -234,7 +235,7 @@ public class DFTestRunner {
                         };
 
                         if (n > 0) {
-                            ra = Functions.constructRA(u, n);
+                            ra = Functions.constructRAforVF(u, n);
                         }
 
                         break;
@@ -262,7 +263,7 @@ public class DFTestRunner {
                         };
 
                         if (n > 0) {
-                            ra = Functions.constructRA(u, n);
+                            ra = Functions.constructRAforVF(u, n);
                         }
 
 
@@ -292,7 +293,7 @@ public class DFTestRunner {
                         };
 
                         if (n > 0) {
-                            ra = Functions.constructRA(u, n);
+                            ra = Functions.constructRAforVF(u, n);
                         }
 
 
@@ -322,7 +323,7 @@ public class DFTestRunner {
                         };
 
                         if (n > 0) {
-                            ra = Functions.constructRA(u, n);
+                            ra = Functions.constructRAforVF(u, n);
                         }
 
 
@@ -353,7 +354,7 @@ public class DFTestRunner {
 
 
                         if (n > 0) {
-                            ra = Functions.constructRA(u, n);
+                            ra = Functions.constructRAforVF(u, n);
                         }
 
                         break;
@@ -382,7 +383,7 @@ public class DFTestRunner {
                         };
 
                         if (n > 0) {
-                            ra = Functions.constructRA(u, n);
+                            ra = Functions.constructRAforVF(u, n);
                         }
 
 
@@ -413,7 +414,7 @@ public class DFTestRunner {
 
 
                         if (n > 0) {
-                            ra = Functions.constructRA(u, n);
+                            ra = Functions.constructRAforVF(u, n);
                         }
                         break;
                 }
@@ -435,7 +436,7 @@ public class DFTestRunner {
                 );
 
                 Map parTest = new HashMap();
-                parTest.put("file",Functions.FINITE_DIFFERENCE_LOG_FOLDER+"/finite_difference.log");
+                parTest.put("file",Functions.FINITE_VOLUME_LOG_FOLDER+"/finite_volume.log");
                 Date d1 = new Date();
 
                 parTest.put("classtotest", classeATester);
@@ -480,7 +481,7 @@ public class DFTestRunner {
             FileOutputStream io = new FileOutputStream(logFile);
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(io));
 
-            writer.write("==========   Résultat du test de la librairie des différences finies   ==========\n\n");
+            writer.write("==========   Résultat du test de la librairie des volumes finis   ==========\n\n");
             writer.newLine();
 
             writer.write("Date de début : " + Functions.FORMATTER.format(start));
