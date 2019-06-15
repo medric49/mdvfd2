@@ -49,7 +49,7 @@ public class Graph{
     public PixelMatrix go() {
         int N = U.length - 2;
         matrix = new PixelMatrix();
-        matrix.setMinSize(500, 500);
+        matrix.setMinSize(450, 450);
         matrix.setColsAndRows(N+1,N+1);
         matrix.setSquarePixels(true);
         matrix.setSpacerSizeFactor(0);
