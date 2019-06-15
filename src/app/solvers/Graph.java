@@ -18,25 +18,25 @@ import javafx.stage.Stage;
 public class Graph{
 
     public static Color[] colors = new Color[]{
-            Color.color(0, 0.5, 0.8,0.1),
-            Color.color(0, 0.5, 0.8,0.15),
-            Color.color(0, 0.5, 0.8,0.2),
-            Color.color(0, 0.5, 0.8,0.25),
-            Color.color(0, 0.5, 0.8,0.3),
-            Color.color(0, 0.5, 0.8,0.35),
-            Color.color(0, 0.5, 0.8,0.4),
-            Color.color(0, 0.5, 0.8,0.45),
-            Color.color(0, 0.5, 0.8,0.5),
-            Color.color(0, 0.5, 0.8,0.55),
-            Color.color(0, 0.5, 0.8,0.6),
-            Color.color(0, 0.5, 0.8,0.65),
-            Color.color(0, 0.5, 0.8,0.7),
-            Color.color(0, 0.5, 0.8,0.75),
+            Color.color(0, 0.5, 0.1,0.1),
+            Color.color(0, 0.5, 0.15,0.15),
+            Color.color(0, 0.5, 0.2,0.2),
+            Color.color(0, 0.5, 0.25,0.25),
+            Color.color(0, 0.5, 0.3,0.3),
+            Color.color(0, 0.5, 0.35,0.35),
+            Color.color(0, 0.5, 0.4,0.4),
+            Color.color(0, 0.5, 0.45,0.45),
+            Color.color(0, 0.5, 0.5,0.5),
+            Color.color(0, 0.5, 0.55,0.55),
+            Color.color(0, 0.5, 0.6,0.6),
+            Color.color(0, 0.5, 0.65,0.65),
+            Color.color(0, 0.5, 0.7,0.7),
+            Color.color(0, 0.5, 0.75,0.75),
             Color.color(0, 0.5, 0.8,0.8),
-            Color.color(0, 0.5, 0.8,0.85),
-            Color.color(0, 0.5, 0.8,0.9),
-            Color.color(0, 0.5, 0.8,1),
-
+            Color.color(0, 0.5, 0.85,0.85),
+            Color.color(0, 0.5, 0.9,0.9),
+            Color.color(0, 0.5, 0.95,0.95),
+            Color.color(0, 0.5, 1,1),
             };
     public Tooltip mousePositionToolTip = new Tooltip("");
     public static double U[][];
