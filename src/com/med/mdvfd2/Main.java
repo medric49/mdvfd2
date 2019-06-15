@@ -4,7 +4,7 @@ import com.udojava.evalex.Expression;
 
 public class Main {
     public static void main(String[] args) {
-        int n = 3;
+        int n = 2;
 
         Function g = new Function() {
             @Override
@@ -21,6 +21,7 @@ public class Main {
 
         Vectorizable v1 = (new VFSolver()).solve(n,g,f, true);
 
-        System.out.println(v1.size());
+        for (int i = 0; i< v1.size(); i++)
+            System.out.println(v1.get(i));
     }
 }

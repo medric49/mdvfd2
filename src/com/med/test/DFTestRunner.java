@@ -1,10 +1,7 @@
-/*
 package com.med.test;
 
-import finit_difference.development.*;
+import com.med.mdvfd2.*;
 import javafx.util.Pair;
-import utilities.Functions;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,39 +23,38 @@ public class DFTestRunner {
 
         Date start = new Date();
         try {
-            String classeATester = "finit_difference.development.DefaultSolver";
-            String methodToTest = "DefaultSolver.solve";
+            String classeATester = "com.med.mdvfd2.DFSolver";
+            String methodToTest = "DFSolver.solve";
             String testFileLogger = "com.mdalsoft.test.FileTestLogger";
             for (int i = 0; i < testClasses.size(); i++) {
                 Pair<Character, Character> classe = testClasses.get(i);
 
                 String scenario = null;
                 Function f = null;
+                Function g = null;
                 Function u = null;
-                double alpha = 0;
-                double beta = 0;
                 double tol = 0;
                 int n = 0;
-                TestFunction g = null;
+                TestFunction testFunction = null;
                 Vector ra = null;
                 Mesure mesure = null;
 
 
-                g = new TestFunction() {
+                testFunction = new TestFunction() {
                     @Override
                     public Vectorizable getRO(Solver f, De de) {
                         if (de.getN() > 0) {
                             Vectorizable ro = null;
                             try {
-                                return f.solve(de.getAlpha(), de.getBeta(), de.getN(), de.getF());
+                                return f.solve(de.getN(), de.getG(), de.getF(), false);
                             } catch (Exception e) {
                                 return null;
                             }
                         } else {
                             try {
-                                Vectorizable ro = f.solve(de.getAlpha(), de.getBeta(), de.getN(), de.getF());
+                                Vectorizable ro = f.solve(de.getN(), de.getG(), de.getF(), false);
                                 return new Vector(1);
-                            } catch (FiniteDifferenceException e) {
+                            } catch (MDVFException e) {
                                 return null;
                             } catch (Exception e) {
                                 return new Vector(1);
@@ -154,7 +150,7 @@ public class DFTestRunner {
                         break;
 
                     case 'e':
-                        n = 10000;
+                        n = 100;
                         mesure = new Mesure() {
                             @Override
                             public double getError(Vectorizable v1, Vectorizable v2) {
@@ -189,25 +185,28 @@ public class DFTestRunner {
 
                         f = new Function() {
                             @Override
-                            public double calcul(double x) {
+                            public double calcul(double x, double y) {
                                 return 0;
                             }
                         };
+
+                        g = new Function() {
+                            @Override
+                            public double calcul(double x, double y) {
+                                return 0;
+                            }
+                        };
+
                         u = new Function() {
                             @Override
-                            public double calcul(double x) {
+                            public double calcul(double x, double y) {
                                 return 0;
                             }
                         };
-                        alpha = 0;
-                        beta = 0;
+
 
                         if (n > 0) {
-                            ra = new Vector(n);
-                            double[] maillage = Functions.getMaillage(n);
-                            for (int j = 0; j < maillage.length; j++) {
-                                ra.set(j, u.calcul(maillage[j]));
-                            }
+                            ra = Functions.constructRA(u, n);
                         }
 
                         break;
@@ -217,267 +216,206 @@ public class DFTestRunner {
 
                         f = new Function() {
                             @Override
-                            public double calcul(double x) {
+                            public double calcul(double x, double y) {
                                 return 0;
                             }
                         };
-                        u = new Function() {
+                        g = new Function() {
                             @Override
-                            public double calcul(double x) {
-                                return 2;
+                            public double calcul(double x, double y) {
+                                return 9;
                             }
                         };
-                        alpha = 2;
-                        beta = 2;
+
+                        u = new Function() {
+                            @Override
+                            public double calcul(double x, double y) {
+                                return 9;
+                            }
+                        };
 
                         if (n > 0) {
-                            ra = new Vector(n);
-
-                            double[] maillage = Functions.getMaillage(n);
-                            for (int j = 0; j < maillage.length; j++) {
-                                ra.set(j, u.calcul(maillage[j]));
-                            }
+                            ra = Functions.constructRA(u, n);
                         }
 
                         break;
 
                     case 'c':
-                        scenario = "Fonction linéaire";
+                        scenario = "Fonction linéaire en x";
                         f = new Function() {
                             @Override
-                            public double calcul(double x) {
+                            public double calcul(double x, double y) {
                                 return 0;
                             }
                         };
-                        u = new Function() {
+                        g = new Function() {
                             @Override
-                            public double calcul(double x) {
-                                return x;
+                            public double calcul(double x, double y) {
+                                return 2*x+3;
                             }
                         };
-                        alpha = 0;
-                        beta = 1;
+
+                        u = new Function() {
+                            @Override
+                            public double calcul(double x, double y) {
+                                return 2*x+3;
+                            }
+                        };
 
                         if (n > 0) {
-                            ra = new Vector(n);
-                            double[] maillage = Functions.getMaillage(n);
-                            for (int j = 0; j < maillage.length; j++) {
-                                ra.set(j, u.calcul(maillage[j]));
-                            }
+                            ra = Functions.constructRA(u, n);
                         }
 
 
                         break;
 
                     case 'd':
-                        scenario = "Fonction polynomiale de dégré 2";
+                        scenario = "Fonction linéaire en y";
 
                         f = new Function() {
                             @Override
-                            public double calcul(double x) {
-                                return -1;
+                            public double calcul(double x, double y) {
+                                return 0;
                             }
                         };
+                        g = new Function() {
+                            @Override
+                            public double calcul(double x, double y) {
+                                return 4*y+5;
+                            }
+                        };
+
                         u = new Function() {
                             @Override
-                            public double calcul(double x) {
-                                return (1./2)*x*x;
+                            public double calcul(double x, double y) {
+                                return 4*y+5;
                             }
                         };
-                        alpha = 0;
-                        beta = 1. / 2;
 
                         if (n > 0) {
-                            ra = new Vector(n);
-
-                            double[] maillage = Functions.getMaillage(n);
-                            for (int j = 0; j < maillage.length; j++) {
-                                ra.set(j, u.calcul(maillage[j]));
-                            }
+                            ra = Functions.constructRA(u, n);
                         }
 
 
                         break;
 
                     case 'e':
-                        scenario = "Fonction polynomiale de degré 3";
+                        scenario = "Fonction avec produit xy";
 
                         f = new Function() {
                             @Override
-                            public double calcul(double x) {
-                                return -3. * x;
+                            public double calcul(double x, double y) {
+                                return 0;
                             }
                         };
+                        g = new Function() {
+                            @Override
+                            public double calcul(double x, double y) {
+                                return x+4*x*y+y;
+                            }
+                        };
+
                         u = new Function() {
                             @Override
-                            public double calcul(double x) {
-                                return  (1./2)*x*x*x;
+                            public double calcul(double x, double y) {
+                                return x+4*x*y+y;
                             }
                         };
-                        alpha = 0;
-                        beta = 1. / 2.;
 
                         if (n > 0) {
-                            ra = new Vector(n);
-
-                            double[] maillage = Functions.getMaillage(n);
-                            for (int j = 0; j < maillage.length; j++) {
-                                ra.set(j, u.calcul(maillage[j]));
-                            }
+                            ra = Functions.constructRA(u, n);
                         }
 
 
                         break;
 
                     case 'f':
-                        scenario = "Fonction exponentielle";
+                        scenario = "Fonction de degré 2 en x";
 
                         f = new Function() {
                             @Override
-                            public double calcul(double x) {
-                                return -16 * Math.exp(4. * x);
+                            public double calcul(double x, double y) {
+                                return -2;
                             }
                         };
+                        g = new Function() {
+                            @Override
+                            public double calcul(double x, double y) {
+                                return x*x+2*x+y+5;
+                            }
+                        };
+
                         u = new Function() {
                             @Override
-                            public double calcul(double x) {
-                                return Math.exp(4*x);
+                            public double calcul(double x, double y) {
+                                return x*x+2*x+y+5;
                             }
                         };
-                        alpha = 1;
-                        beta = Math.exp(4);
 
 
                         if (n > 0) {
-                            ra = new Vector(n);
-
-                            double[] maillage = Functions.getMaillage(n);
-                            for (int j = 0; j < maillage.length; j++) {
-                                ra.set(j, u.calcul(maillage[j]));
-                            }
+                            ra = Functions.constructRA(u, n);
                         }
 
                         break;
 
                     case 'g':
-                        scenario = "Fonction polynomiale de degré elevé";
+                        scenario = "Fonction de degré 2 en y";
 
                         f = new Function() {
                             @Override
-                            public double calcul(double x) {
-                                return -9900. * Math.pow(x - 0.5, 98);
+                            public double calcul(double x, double y) {
+                                return -4;
                             }
                         };
+                        g = new Function() {
+                            @Override
+                            public double calcul(double x, double y) {
+                                return 2*y*y+3*x+10*y+5;
+                            }
+                        };
+
                         u = new Function() {
                             @Override
-                            public double calcul(double x) {
-                                return Math.pow(x-0.5, 100);
+                            public double calcul(double x, double y) {
+                                return 2*y*y+3*x+10*y+5;
                             }
                         };
-                        alpha = Math.pow(0.5, 100);
-                        beta = Math.pow(0.5, 100);
 
                         if (n > 0) {
-                            ra = new Vector(n);
-
-                            double[] maillage = Functions.getMaillage(n);
-                            for (int j = 0; j < maillage.length; j++) {
-                                ra.set(j, u.calcul(maillage[j]));
-                            }
+                            ra = Functions.constructRA(u, n);
                         }
 
 
                         break;
 
                     case 'h':
-                        scenario = "Fonction logarithmique";
+                        scenario = "Fonction de degré 2 en x et y";
 
                         f = new Function() {
                             @Override
-                            public double calcul(double x) {
-                                return 1. / ((x + .5) * (x + .5));
+                            public double calcul(double x, double y) {
+                                return -6;
                             }
                         };
+                        g = new Function() {
+                            @Override
+                            public double calcul(double x, double y) {
+                                return 2*x*x+y*y+3*x*y+4*x+5*y+2;
+                            }
+                        };
+
                         u = new Function() {
                             @Override
-                            public double calcul(double x) {
-                                return Math.log(x+.5);
+                            public double calcul(double x, double y) {
+                                return 2*x*x+y*y+3*x*y+4*x+5*y+2;
                             }
                         };
-                        alpha = -Math.log(2);
-                        beta = Math.log(3. / 2.);
 
 
                         if (n > 0) {
-                            ra = new Vector(n);
-
-                            double[] maillage = Functions.getMaillage(n);
-                            for (int j = 0; j < maillage.length; j++) {
-                                ra.set(j, u.calcul(maillage[j]));
-                            }
+                            ra = Functions.constructRA(u, n);
                         }
-
-
-                        break;
-
-                    case 'i':
-                        scenario = "Fonction sinusoidale";
-
-                        f = new Function() {
-                            @Override
-                            public double calcul(double x) {
-                                return (4 * Math.PI * Math.PI) * Math.sin(2 * Math.PI * x);
-                            }
-                        };
-                        u = new Function() {
-                            @Override
-                            public double calcul(double x) {
-                                return Math.sin(2*Math.PI*x);
-                            }
-                        };
-                        alpha = 0;
-                        beta = 0;
-
-
-                        if (n > 0) {
-                            ra = new Vector(n);
-
-                            double[] maillage = Functions.getMaillage(n);
-                            for (int j = 0; j < maillage.length; j++) {
-                                ra.set(j, u.calcul(maillage[j]));
-                            }
-                        }
-
-
-                        break;
-
-                    case 'j':
-                        scenario = "Fonction chainette";
-
-                        f = new Function() {
-                            @Override
-                            public double calcul(double x) {
-                                return -16 * Math.sinh(4 * x);
-                            }
-                        };
-                        u = new Function() {
-                            @Override
-                            public double calcul(double x) {
-                                return Math.sinh(4*x);
-                            }
-                        };
-                        alpha = 0;
-                        beta = Math.sinh(4);
-
-
-                        if (n > 0) {
-                            ra = new Vector(n);
-                            double[] maillage = Functions.getMaillage(n);
-                            for (int j = 0; j < maillage.length; j++) {
-                                ra.set(j, u.calcul(maillage[j]));
-                            }
-                        }
-
                         break;
                 }
 
@@ -494,7 +432,7 @@ public class DFTestRunner {
                     scenario += " avec n très grand";
 
                 TestData testData = new TestData(
-                        new DefaultSolver(), scenario, new De(alpha, beta, n, f), g, ra, mesure, tol
+                        new DFSolver(), scenario, new De(n, g, f), testFunction, ra, mesure, tol
                 );
 
                 Map parTest = new HashMap();
@@ -577,4 +515,4 @@ public class DFTestRunner {
         }
     }
 }
-*/
+

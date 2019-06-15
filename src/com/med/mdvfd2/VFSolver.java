@@ -5,7 +5,8 @@ public class VFSolver extends ASolver {
 
     @Override
     public Vectorizable solve(int n, Function g, Function f, boolean multiThreading) throws MDVFException {
-        if (n>0) {
+        n--;
+        if (n>-1) {
             int iter = 5000;
             final int th_pas = 100;
             int k = 0;
@@ -18,11 +19,12 @@ public class VFSolver extends ASolver {
             Vector u = new Vector((n+1)*(n+1));
             while (k<iter) {
                 if (multiThreading) {
+                    int finalN = n;
                     (new Thread() {
                         @Override
                         public void run() {
                             for (int i = 0; i<th_pas; i++)
-                                apply(volumesPoints, volumes, n, h, u, g, f);
+                                apply(volumesPoints, volumes, finalN, h, u, g, f);
                         }
                     }).start();
                     k+=th_pas;
@@ -36,7 +38,7 @@ public class VFSolver extends ASolver {
             return u;
         }
         else
-            throw new MDVFException("Le nombre n est négatif");
+            throw new MDVFException("Le nombre n est négatif ou nul");
     }
 
     private void apply(Pair[] volumesPoints, Pair[] volumes, int n,double h, Vectorizable u, Function g, Function f) {
